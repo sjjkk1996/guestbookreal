@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">Guestbook Read Page</h1>
+        <div class="form-group">
+            <label>글번호</label>
+            <input type="text" class="form-control" name="gno"
+                   th:value="${dto.gno}" readonly>
+        </div>
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="title"
+                   th:value="${dto.title}" readonly>
+        </div>
+        <div class="form-group">
+            <label>Content</label>
+            <textarea class="form-control" name="content" readonly
+                      rows="5">[[${dto.content}]]</textarea>
+        </div>
+        <div class="form-group">
+            <label>Writer</label>
+            <input type="text" class="form-control" name="writer"
+                   th:value="${dto.writer}" readonly>
+        </div>
+        <div class="form-group">
+            <label>등록 일자</label>
+            <input type="text" class="form-control" name="regDate"  readonly
+                   th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}">
+        </div>
+        <div class="form-group">
+            <label>수정 일자</label>
+            <input type="text" class="form-control" name="modDate"  readonly
+                   th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}">
+        </div>
+        <div style="margin-bottom: 20px;"></div>
+        <a th:href="@{/guestbook/modify(gno=${dto.gno},page=${requestDTO.page})}">
+            <button class="btn btn-primary">수정하기</button>
+        </a>
+        <a th:href="@{/guestbook/list(page=${requestDTO.page})}">
+            <button class="btn btn-info">목록보기</button>
+        </a>
+    </th:block>
+</th:block>
