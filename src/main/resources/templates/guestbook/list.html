@@ -18,6 +18,7 @@
             </tr>
             </thead>
             <tbody>
+<!--            책에는 글번호를 눌러들어가는 형식이지만 여기코드는 한 행을 누르면 들어가지는형식임-->
             <tr th:each="dto : ${result.dtoList}" class="tr-list"
                 th:onclick="|javascript:read('${dto.gno}','${result.page}')|">
                 <th scope="row">[[${dto.gno}]]</th>
@@ -45,11 +46,11 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">등록되었습니다.</h5>
+                        <h5 class="modal-title">되었습니다.</h5>
                         <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Close"/>
                     </div>
                     <div class="modal-body">
-                        <p id="modalMsg"> 번 글이 등록되었습니다.</p>
+                        <p id="modalMsg"> 번 글이 <span class="modal-title"></span>되었습니다.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -67,6 +68,7 @@
 
             if(msg){
                 $('#modalMsg').prepend(msg);
+                $('.modal-title').prepend([[${noti}]]);
                 $('.modal').modal();
             }
                  function read(gno, page){

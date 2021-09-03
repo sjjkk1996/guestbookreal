@@ -3,7 +3,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <form action="/guestbook/modify" method="post">
-            <input typr="hidden" th:value="${requestDTO.page}" name="page" />
+        <input type="hidden" th:value="${requestDTO.page}" name="page" />
         <h1 class="mt-4">Guestbook Modify Page</h1>
         <div class="form-group">
             <label>글번호</label>
@@ -27,12 +27,12 @@
         </div>
         <div class="form-group">
             <label>등록 일자</label>
-            <input type="text" class="form-control" name="regDate"  readonly
+            <input type="text" class="form-control" readonly
                    th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}">
         </div>
         <div class="form-group">
             <label>수정 일자</label>
-            <input type="text" class="form-control" name="modDate"  readonly
+            <input type="text" class="form-control" readonly
                    th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}">
         </div>
         <div style="margin-bottom: 20px;"></div>
@@ -43,19 +43,17 @@
         <div style="margin-bottom: 20px;"></div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script th:inline="javascript">
-            var actionFrom = $("form");
+            var actionForm = $("form");
             $(".removeBtn").click(function(){
                 actionForm.attr("action", "/guestbook/remove")
-                .attr("method","post);
+                .attr("method","post");
                 actionForm.submit();
             });
 
             $(".modifyBtn").click(function(){
-                if(!confirm('수정하시겠습니까?')){
-                return;
-                }
-                actionForm.attr("action", "/guestbook/remove")
-                .attr("method","post);
+                if(!confirm('수정하시겠습니까?'))return;
+                actionForm.attr("action", "/guestbook/modify")
+                .attr("method","post");
                 actionForm.submit();
             });
 
@@ -66,9 +64,7 @@
                 actionForm
                     .attr("action", "/guestbook/list")
                     .attr("method","get");
-
-                    console.log(actionForm.html());
-                    actionFrom.submit();
+                    actionForm.submit();
             });
         </script>
     </th:block>

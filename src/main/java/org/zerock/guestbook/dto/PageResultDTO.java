@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 
 @Data
 public class PageResultDTO<DTO, EN> {
-    //DTO 리스트
+    //DTO 리스트 순서있음
     private List<DTO> dtoList;
 
     //총 페이지 번호

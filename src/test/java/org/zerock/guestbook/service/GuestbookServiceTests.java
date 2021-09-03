@@ -33,19 +33,40 @@ public class GuestbookServiceTests {
 //            System.out.println(dto);
 //        }
 //    }
+//    @Test
+//    public void testPageNumberList(){
+//        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
+//
+//        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = guestbookService.getList(pageRequestDTO);
+//        System.out.println("prev :: " + resultDTO.isPrev());
+//        System.out.println("next :: " + resultDTO.isNext());
+//        System.out.println("total :: " + resultDTO.getTotalPage());
+//        System.out.println("----------------------");
+//        for (GuestbookDTO dto : resultDTO.getDtoList()) {
+//            System.out.println(dto);
+//        }
+//        System.out.println("--------------------------");
+//        resultDTO.getPageList().forEach(i-> System.out.println(i));
+//    }
     @Test
-    public void testPageNumberList(){
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
-
+    public void testSeatch(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .type("tc")
+                .keyword("한글")
+                .build();
         PageResultDTO<GuestbookDTO, Guestbook> resultDTO = guestbookService.getList(pageRequestDTO);
-        System.out.println("prev :: " + resultDTO.isPrev());
-        System.out.println("next :: " + resultDTO.isNext());
-        System.out.println("total :: " + resultDTO.getTotalPage());
-        System.out.println("----------------------");
-        for (GuestbookDTO dto : resultDTO.getDtoList()) {
-            System.out.println(dto);
+
+        System.out.println("PREV: "+resultDTO.isPrev());
+        System.out.println("NEXT: "+resultDTO.isNext());
+        System.out.println("TOTAL: "+resultDTO.getTotalPage());
+
+        System.out.println("-----------------------------");
+        for (GuestbookDTO guestbookDTO : resultDTO.getDtoList()) {
+            System.out.println(guestbookDTO);
         }
-        System.out.println("--------------------------");
-        resultDTO.getPageList().forEach(i-> System.out.println(i));
+        System.out.println("======================");
+        resultDTO.getPageList().forEach(i -> System.out.println(i));
     }
 }
