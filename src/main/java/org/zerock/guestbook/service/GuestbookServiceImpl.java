@@ -44,9 +44,12 @@ public class GuestbookServiceImpl implements GuestbookService{
     public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO dto) {
         //화면에 페이지 처리와 필요한 값들을 생성
         Pageable pageable = dto.getPageable(Sort.by("gno").descending());
-        
+
+        BooleanBuilder booleanBuilder = getSearch(PageRequestDTO.builder().build());
+//        이줄 맞는지 모르겠음 ********************************************************************
+
         //JPA처리 결과인 Page<Entity>객체 생성
-        Page<Guestbook> result = guestbookRepository.findAll(pageable);
+        Page<Guestbook> result = guestbookRepository.findAll(booleanBuilder, pageable);
 
         //JPA로부터 처리된 결과에 Entity를 DTO로 변형하는 처리부분
         Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
@@ -103,14 +106,6 @@ public class GuestbookServiceImpl implements GuestbookService{
         booleanBuilder.and(conditionBuilder);
         return booleanBuilder;
         }
-    @Override
-    public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());
-        BooleanBuilder booleanBuilder = getSearch(requestDTO);
-        Page<Guestbook> result = repository.findAll(booleanBuilder, pageable);
-        Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
-        return new PageResultDTO<>(result, fn);
-    }
 
     }
 
